@@ -1,0 +1,23 @@
+.container {
+    position: static;
+}
+
+.map {
+    height: 76vh;
+    z-index: 0;
+}
+
+.popup {
+    width: 330px; 
+}
+
+.cluster {
+    color: #EA4227;
+}
+
+.dialogBox {
+    background-color: #F5F5F5; /* Example: Change background */
+    border-radius: 16px; /* Example: Rounded corners */
+    width: 330px;
+    color: black; 
+  }
