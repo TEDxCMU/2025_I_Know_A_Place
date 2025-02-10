@@ -1,12 +1,10 @@
 # 2025_I_Know_A_Place
 
-TODO: Libraries to Install:\\ 
+TODO: Libraries to Install:\
 
-#npm\ 
-1. npm install\\ 
+1. npm install\
 
-#other dependencies\
-2. npm install these dependencies:\\
+2. npm install these dependencies:\
 
 "@emotion/react"\
 "@emotion/styled"\
