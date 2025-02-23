@@ -14,12 +14,20 @@
     font-size: 4rem;
     font-weight: 400;
     font-family: "Mazius";
+    margin-bottom: 1rem;
 }
 
-.title {
-    font-size: 3rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
+.about{
+    display: flex;
+    justify-content: space-between;
+}
+
+.about .left{
+    width: 45%; 
+}
+
+.about .img{
+    width: 45%; 
 }
 
 .text{
@@ -39,5 +47,23 @@
 
     .title {
         font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .about{
+        display: block;
+    }
+
+    .about .left{
+        width: 100%; 
+    }
+
+    .about .img{
+        width: 100%; 
+    }
+
+    .text{
+        font-size: 0.75rem;
+        margin-bottom: 1rem;
     }
 }
