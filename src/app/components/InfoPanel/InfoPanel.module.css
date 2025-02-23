@@ -14,13 +14,13 @@
 }
 
 .span {
-    font-family: Mazius, sans-serif;
+    font-family: "Mazius", sans-serif;
 }
 
 .body {
     margin-top: 1rem;
     line-height: 1.4;
-    font-size: 14px;
+    font-size: 1.2rem;
 }
 
 @media screen and (max-width: 768px) {

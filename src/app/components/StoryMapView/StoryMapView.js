@@ -137,11 +137,16 @@ function ClickComponent({ selectionMarker, setSelectionMarker, handleClickOpen }
                             return (
                                 <Marker key={id} position={position} icon={markerIcon}>
                                     <Popup className={styles.popup}>
-                                        {data[1] && <p style={{ margin: "0 0 20px 0" }}><i>{data[1]}</i></p>}
+                                        <p style={{fontSize: "16px", margin:"0 0 10px 0"}}><strong>{data[0]}</strong></p>
+                                        <hr/>
+                                        {data[1] && <p style={{ fontSize:"14px", margin: "10px 0 10px 0" }}><strong>{data[1]}</strong></p>}
                                         <div>
-                                            <strong>{data[0]}</strong>
-                                            <p>{data[2]}</p>
-                                            <p><b>Tags:</b> {data[3]}</p>
+                                            <p style={{fontSize:"14px", margin: "0 0 20px 0" }}>{data[2]}</p>
+                                            <div style={{display:"flex", flexWrap:"wrap"}}>
+                                                {JSON.parse(data[3]).map((item, id) =>                                 
+                                                    <button key={id} className={styles.tag}>{item.tag} </button>)
+                                                }
+                                            </div>
                                         </div>
                                     </Popup>
                                 </Marker>

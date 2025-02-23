@@ -28,16 +28,32 @@ async function generate(setLoading, setTags, story) {
                 role: 'system',
                 content: 
                 `
-                Generate five tags associated with the story provided. 
+                Generate three tags associated with the story provided. 
+                Choose the three tags from this list: 
+                1. Whimsical
+                2. Melancholic
+                3. Suspenseful
+                4. Tense
+                5. Enchanting
+                6. Nostalgic
+                7. Heartwarming
+                8. Inspirational
+                9. Triumphant
+                10. Mysterious
+                11. Ominous
+                12. Hilarious
+                13. Bittersweet
+                14. Thrilling
+                15. Somber
+                16. Educational
+
                 These tags should describe the tone, themes, and emotions of a story. 
                 Here is an example: 
                 {
                     "tags": [
                     { "tag": "Miracle"},
                     { "tag": "Love"},
-                    { "tag": "School" }
-                    { "tag": "Magical" }
-                    { "tag": "Triumphant" }
+                    { "tag": "Truimphant" }
                     ],
                 }
 

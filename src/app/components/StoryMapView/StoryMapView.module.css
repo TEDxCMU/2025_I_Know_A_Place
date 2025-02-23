@@ -15,6 +15,18 @@
     color: #EA4227;
 }
 
+.tag {
+    display: flex;
+    margin: 0 4px 4px 0 ;
+    padding: 4px 16px; 
+    border: none;
+    border-radius: 2.2rem;
+    background-color: #ff5338;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+}
+
 .dialogBox {
     background-color: #F5F5F5; /* Example: Change background */
     border-radius: 16px; /* Example: Rounded corners */

@@ -2,16 +2,18 @@
     padding: 2rem 4rem;
     background-color: white;
     color: black; 
+    height: 100vh; 
 }
 
 .header {
     background-color: #fafafa;
 }
 
-.header > .title {
+.title {
     text-transform: uppercase;
     font-size: 4rem;
     font-weight: 400;
+    font-family: "Mazius";
 }
 
 .title {
@@ -21,7 +23,9 @@
 }
 
 .text{
-    line-height: 1.4; 
+    line-height: 1.4;
+    font-size: 1.2rem; 
+    margin-bottom: 2rem; 
 }
 
 @media screen and (max-width: 768px) {
