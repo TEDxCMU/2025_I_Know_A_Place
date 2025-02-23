@@ -260,7 +260,12 @@ function StorySubmit({ latLong }) {
                 </>
             )}
             {submitted && (
-                <p className={styles.success}>Your submission has been successfully received! Please refresh your screen to view it. TEDxCMU reserves the right to remove any submission deemed inappropriate. Thank you!</p>
+                <p className={styles.success}>
+                Your submission has been successfully received! 
+                <br/>
+                <br/>
+                Please refresh your screen to view it. TEDxCMU reserves the right to remove any submission deemed inappropriate. Thank you!
+                </p>
             )}
         </section>
     );
