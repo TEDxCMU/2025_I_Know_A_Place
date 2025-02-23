@@ -179,7 +179,7 @@ function StorySubmit({ latLong }) {
         <section>
             {!submitted && (
                 <>
-                    <div style={{marginBottom:"10px"}}>
+                    <div style={{marginBottom:"12px"}}>
                         <h1 className={styles.title}>Share Your Story:</h1>
                         <label className={styles.label} style={{fontWeight:"normal", marginTop:"4px"}}>
                                 Start your story at location: {latLong.lat.toFixed(4)}, {latLong.lng.toFixed(4)}
@@ -201,13 +201,13 @@ function StorySubmit({ latLong }) {
                                 </option>
                             ))}
                         </select>
-                        <label className={styles.label} style={{marginBottom:"10px"}} htmlFor="story">Your Story</label>
+                        <label className={styles.label} style={{marginBottom:"12px"}} htmlFor="story">Your Story</label>
                         <textarea
                             className={styles.input}
                             id="story"
                             rows="6"
                             cols="10"
-                            disabled = {(tags.length >= 5) ? true : false}
+                            disabled = {(tags.length >= 3) ? true : false}
                             value={storyText}
                             onChange={handleStoryText}
                             required
@@ -236,11 +236,8 @@ function StorySubmit({ latLong }) {
 
                         {tags.length >= 3 &&(
                             <>
-                            <label className={styles.label} htmlFor="story">Edit Tags</label>
-                            <label className={styles.label} style={{fontWeight:"normal", marginTop:"4px"}}>
-                                Click to remove tags
-                            </label>
-                            <div style={{display:"flex", flexWrap:"wrap", margin:"10px 0 20px 0 "}}>
+                            <label className={styles.label} htmlFor="story">Tags</label>
+                            <div style={{display:"flex", flexWrap:"wrap", margin:"12px 0 20px 0 "}}>
                             {tags.map((t, index) => (
                                 <button className={styles.tag} key={index} value={t}>
                                     {t.tag}
