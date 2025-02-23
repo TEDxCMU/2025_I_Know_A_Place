@@ -7,7 +7,7 @@ import OpenAI from 'openai';
 
 async function generate(setLoading, setTags, story) {
 
-    console.log(prompt); 
+    console.log("PROMPT", story); 
 
     const openai = new OpenAI({
         apiKey: process.env.NEXT_PUBLIC_OPENAI,
@@ -57,7 +57,7 @@ async function generate(setLoading, setTags, story) {
                     ],
                 }
 
-                If the story provided is inappropriate, return an array of length 1: 
+                If the story provided is not appropriate in a conversation, return an array of length 1: 
                 {
                     "tags": [
                         {"tag": ""}
@@ -213,7 +213,7 @@ function StorySubmit({ latLong }) {
                             required
                         />
 
-                        {tags.length < 5 && (
+                        {tags.length < 3 && (
                             <>
                             {tags.length > 0 && (
                                 <p className={styles.label} style={{fontWeight:"normal", color:"red", marginBottom:"20px"}}>Please enter an appropriate story</p>
@@ -234,7 +234,7 @@ function StorySubmit({ latLong }) {
                             
                         )}
 
-                        {tags.length >= 5 &&(
+                        {tags.length >= 3 &&(
                             <>
                             <label className={styles.label} htmlFor="story">Edit Tags</label>
                             <label className={styles.label} style={{fontWeight:"normal", marginTop:"4px"}}>
@@ -260,7 +260,7 @@ function StorySubmit({ latLong }) {
                 </>
             )}
             {submitted && (
-                <p className={styles.success}>Submitted successfully! You will recieve an email when our team reviews and publishes your story. Thank you!</p>
+                <p className={styles.success}>Your submission has been successfully received! Please refresh your screen to view it. TEDxCMU reserves the right to remove any submission deemed inappropriate. Thank you!</p>
             )}
         </section>
     );
