@@ -1,6 +1,9 @@
 # Credentials
 src/app/api/gsapi-credentials.json
 
+# IDE Specific
+.idea
+
 # Logs
 logs
 *.log
