@@ -1,17 +1,18 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
+import credential from "@/app/api/gsapi-credentials.json"
 
 export async function POST(req) {
     try {
-        const body = await req.json(); 
+        const body = await req.json();
         console.log("Received Data:", body);
 
         const { name, selected, storyText, tags, latLong } = body;
 
         const client = new google.auth.JWT(
-            process.env.NEXT_PUBLIC_EMAIL, 
-            null, 
-            process.env.NEXT_PUBLIC_KEY,
+            credential.client_email,
+            null,
+            credential.private_key,
             ['https://www.googleapis.com/auth/spreadsheets']
         );
 
@@ -24,8 +25,8 @@ export async function POST(req) {
                 resolve();
             });
         });
-        
-        const spreadsheetId = process.env.NEXT_PUBLIC_SHEETS_ID; 
+
+        const spreadsheetId = process.env.SPREADSHEET_ID;
 
         const rowOptions = {
             spreadsheetId,
@@ -37,7 +38,7 @@ export async function POST(req) {
             },
         };
 
-        await gsapi.spreadsheets.values.append(rowOptions); 
+        await gsapi.spreadsheets.values.append(rowOptions);
 
         return NextResponse.json({ success: true, message: "Data received!" });
     } catch (error) {

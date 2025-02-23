@@ -1,79 +1,28 @@
 "use client"
 
 import { useState, useEffect } from "react";
-
 import styles from './StorySubmit.module.css';
-import OpenAI from 'openai';
 
 async function generate(setLoading, setTags, story) {
 
-    console.log(prompt); 
-
-    const openai = new OpenAI({
-        apiKey: process.env.NEXT_PUBLIC_OPENAI,
-        dangerouslyAllowBrowser: true
-    });
-
-    console.log("generate"); 
+    console.log(prompt);
+    console.log("generate");
 
     setLoading(true); // Set loading state to true
 
     try {
-        
-      //Prompting
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
-        messages: [
-            {
-                role: 'system',
-                content: 
-                `
-                Generate five tags associated with the story provided. 
-                These tags should describe the tone, themes, and emotions of a story. 
-                Here is an example: 
-                {
-                    "tags": [
-                    { "tag": "Miracle"},
-                    { "tag": "Love"},
-                    { "tag": "School" }
-                    { "tag": "Magical" }
-                    { "tag": "Triumphant" }
-                    ],
-                }
 
-                If the story provided is inappropriate, return an array of length 1: 
-                {
-                    "tags": [
-                        {"tag": ""}
-                    ]
-                }
+        // Refactored generate as an API method so API KEY won't be exposed
+        const response = await fetch("/api/prompt", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ story: story }),
+        });
 
-                Do not put a comma at the end of the events or connections arrays. 
-                Return the response in JSON format that can be parsed by JSON.parse().
-                `
-            },
-            {
-                role: 'user',
-                content: 
-                `
-                ${story}
-                `
-            }
-        ]
-    });
-                       
-        let event = response.choices[0].message.content;
+        const parsedResponse = await response.json();
+        console.log(parsedResponse.tags);
+        setTags(parsedResponse.tags);
 
-        let startIndex = event.indexOf('{');
-        let endIndex = event.lastIndexOf('}');
-        event = event.substring(startIndex, endIndex + 1);
-
-        //Parsing through returned JSON File
-        const parsedEventsObject = JSON.parse(event);
-        console.log(parsedEventsObject.tags); 
-
-        setTags(parsedEventsObject.tags);
-        
     } catch (error) {
         console.error('Error:', error);
     } finally {
@@ -86,9 +35,9 @@ function StorySubmit({ latLong }) {
     const [name, setName] = useState('');
     const [storyText, setStoryText] = useState('');
     const [submitted, setSubmitted] = useState('');
-    const [selected, setSelected] = useState('What’s the strongest memory you have of this place?'); 
-    const [loading, setLoading] = useState(false); 
-    const [tags, setTags] = useState([]); 
+    const [selected, setSelected] = useState('What’s the strongest memory you have of this place?');
+    const [loading, setLoading] = useState(false);
+    const [tags, setTags] = useState([]);
 
 
     useEffect(() => {
@@ -123,9 +72,9 @@ function StorySubmit({ latLong }) {
         try {
 
             const data = {
-                name: name, 
-                selected: selected, 
-                storyText: storyText, 
+                name: name,
+                selected: selected,
+                storyText: storyText,
                 tags: tags,
                 latLong: latLong
             }
@@ -137,7 +86,7 @@ function StorySubmit({ latLong }) {
                 },
                 body: JSON.stringify(data)
             });
-    
+
             const result = await response.json();
 
             if (result.success) {
@@ -215,7 +164,7 @@ function StorySubmit({ latLong }) {
                                     )}
                                 </button>
                             </>
-                            
+
                         )}
 
                         {tags.length >= 5 &&(

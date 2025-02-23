@@ -1,13 +1,14 @@
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
+import credential from "@/app/api/gsapi-credentials.json"
 
 export async function GET() {
     try {
 
         const client = new google.auth.JWT(
-            process.env.NEXT_PUBLIC_EMAIL, 
-            null, 
-            process.env.NEXT_PUBLIC_KEY,
+            credential.client_email,
+            null,
+            credential.private_key,
             ['https://www.googleapis.com/auth/spreadsheets']
         );
 
@@ -21,7 +22,7 @@ export async function GET() {
 
             const gsapi = google.sheets({version:'v4', auth: client});
 
-            const spreadsheetId = process.env.NEXT_PUBLIC_SHEETS_ID; 
+            const spreadsheetId = process.env.SPREADSHEET_ID;
             const sheetName = 'Sheet1';
             const startRow = 2; // First row to read
             const endRow = 300; // Last row to read (adjust based on your data)
@@ -47,11 +48,16 @@ export async function GET() {
                     .map(row => row.filter(value => value.trim() !== "")) // Remove empty cells in a row
                     .filter(row => row.length > 0); // Remove completely empty rows
 
-                console.log("Populated Rows:", populatedRows);
-                return populatedRows;
+                // Eliminate duplicated rows
+                const uniqueRows = Array
+                    .from(new Set(populatedRows.map(row => JSON.stringify(row))))
+                    .map(rowString => JSON.parse(rowString));
+
+                console.log("Populated Rows (unique):", uniqueRows);
+                return uniqueRows;
             }
 
-            const stories = await getPopulatedRows(); 
+            const stories = await getPopulatedRows();
 
 
 

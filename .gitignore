@@ -1,3 +1,6 @@
+# Credentials
+src/app/api/gsapi-credentials.json
+
 # Logs
 logs
 *.log
