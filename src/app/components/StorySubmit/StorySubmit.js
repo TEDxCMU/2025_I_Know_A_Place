@@ -3,94 +3,32 @@
 import { useState, useEffect } from "react";
 
 import styles from './StorySubmit.module.css';
-import OpenAI from 'openai';
 
-async function generate(setLoading, setTags, story) {
+async function generate(setLoading, tags, setTags, story) {
 
     console.log("PROMPT", story); 
-
-    const openai = new OpenAI({
-        apiKey: process.env.NEXT_PUBLIC_OPENAI,
-        dangerouslyAllowBrowser: true
-    });
 
     console.log("generate"); 
 
     setLoading(true); // Set loading state to true
 
     try {
-        
-      //Prompting
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
-        messages: [
-            {
-                role: 'system',
-                content: 
-                `
-                Generate three tags associated with the story provided. 
-                Choose the three tags from this list: 
-                1. Whimsical
-                2. Melancholic
-                3. Suspenseful
-                4. Tense
-                5. Enchanting
-                6. Nostalgic
-                7. Heartwarming
-                8. Inspirational
-                9. Triumphant
-                10. Mysterious
-                11. Ominous
-                12. Hilarious
-                13. Bittersweet
-                14. Thrilling
-                15. Somber
-                16. Educational
-
-                These tags should describe the tone, themes, and emotions of a story. 
-                Here is an example: 
-                {
-                    "tags": [
-                    { "tag": "Miracle"},
-                    { "tag": "Love"},
-                    { "tag": "Truimphant" }
-                    ],
-                }
-
-                If the story provided is not appropriate in a conversation, return an array of length 1: 
-                {
-                    "tags": [
-                        {"tag": ""}
-                    ]
-                }
-
-                Do not put a comma at the end of the events or connections arrays. 
-                Return the response in JSON format that can be parsed by JSON.parse().
-                `
-            },
-            {
-                role: 'user',
-                content: 
-                `
-                ${story}
-                `
-            }
-        ]
-    });
                        
-        let event = response.choices[0].message.content;
+        const response = await fetch("/api/openai", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ input: story }),
+        });
+          
+        const event = await response.json();
 
-        let startIndex = event.indexOf('{');
-        let endIndex = event.lastIndexOf('}');
-        event = event.substring(startIndex, endIndex + 1);
+        setTags(() => event.tags);
 
-        //Parsing through returned JSON File
-        const parsedEventsObject = JSON.parse(event);
-        console.log(parsedEventsObject.tags); 
-
-        setTags(parsedEventsObject.tags);
+        console.log("TAGS:", tags, tags.length);
         
-    } catch (error) {
+    } catch (error) {x
         console.error('Error:', error);
     } finally {
         console.log("done");
@@ -110,14 +48,6 @@ function StorySubmit({ latLong }) {
     useEffect(() => {
         (async function () {
             const allPrompts = []
-            // const response = await allPrompts.get();
-            // const newPrompts = [];
-            // response.docs.forEach((doc) => {
-            //     const data = doc.data();
-            //     newPrompts.push(data.text);
-            // });
-            // setPrompt(newPrompts[0]);
-            // setPrompts(newPrompts);
         })();
     }, []);
 
@@ -221,8 +151,8 @@ function StorySubmit({ latLong }) {
                                 <button
                                 className={styles.submit}
                                 type="submit"
-                                disabled={!(storyText)}
-                                onClick = {() => generate(setLoading, setTags, storyText)}
+                                disabled={loading}
+                                onClick = {() => generate(setLoading, tags, setTags, storyText)}
                                 >
                                     {!loading ?
                                         <p>Generate Tags</p>
@@ -247,7 +177,7 @@ function StorySubmit({ latLong }) {
                             <button
                             className={styles.submit}
                             type="submit"
-                            disabled={!(storyText)}
+                            disabled={loading}
                             onClick = {() => handleSubmit()}
                             >
                                 <p>Submit</p>
