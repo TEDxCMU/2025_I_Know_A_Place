@@ -12,7 +12,7 @@ export async function POST(req) {
     }
     
     const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY, // Ensure this is kept secure in environment variables
+      apiKey: process.env.NEXT_PUBLIC_OPENAI, // Ensure this is kept secure in environment variables
     });
     
     const response = await openai.chat.completions.create({
