@@ -51,13 +51,15 @@ export async function POST(req) {
             }
 
             If the story provided is not appropriate, return an array of length 1: 
+            Check for obsecene language, assault, racist in nature.
+            
             {
                 "tags": [
                     {"tag": ""}
                 ]
             }
 
-            Return the response in JSON format that can be parsed by JSON.parse().
+            Return the response in JSON format that can be parsed by JSON.parse()
           `,
         },
         {

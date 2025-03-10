@@ -39,7 +39,7 @@ async function generate(setLoading, tags, setTags, story) {
 function StorySubmit({ latLong }) {
     const [name, setName] = useState('');
     const [storyText, setStoryText] = useState('');
-    const [submitted, setSubmitted] = useState('');
+    const [submitted, setSubmitted] = useState(false);
     const [selected, setSelected] = useState('What’s the strongest memory you have of this place?'); 
     const [loading, setLoading] = useState(false); 
     const [tags, setTags] = useState([]); 
@@ -68,6 +68,8 @@ function StorySubmit({ latLong }) {
 
         try {
 
+            setLoading(true); //Set loading to true when sending info to google sheets
+
             const data = {
                 name: name, 
                 selected: selected, 
@@ -94,6 +96,7 @@ function StorySubmit({ latLong }) {
         } catch (error) {
             console.error("Failed to submit data:", error);
         }
+        setLoading(false); //Set to false once done sending info
 
         setSubmitted(true);
     };
@@ -104,7 +107,7 @@ function StorySubmit({ latLong }) {
         { id: 3, value: "If you could revisit this place exactly as it was in one moment, when would that be?" },
         { id: 4, value: "If you close your eyes and picture this place, what do you smell and taste first?" }
     ];
-
+ 
     return (
         <section>
             {!submitted && (
