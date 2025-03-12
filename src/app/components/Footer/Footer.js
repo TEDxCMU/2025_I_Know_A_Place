@@ -9,9 +9,6 @@ function Footer() {
                     TEDxCMU
                 </a>
             </p>
-            <p className={styles.text}>
-                    Admin
-            </p>
         </footer>
     )
 }
