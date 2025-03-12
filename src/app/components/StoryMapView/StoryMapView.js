@@ -65,7 +65,6 @@ function ClickComponent({ selectionMarker, setSelectionMarker, handleClickOpen }
                     const fetchedStories = result.stories.stories;
                     if (Array.isArray(fetchedStories)) {
                         setStories(fetchedStories);
-                        console.log("STORIES", fetchedStories)
                     } else {
                         console.error("Expected an array of stories, but got:", fetchedStories);
                         setStories([]);  // Default to empty array if the data is malformed
@@ -88,11 +87,28 @@ function ClickComponent({ selectionMarker, setSelectionMarker, handleClickOpen }
             setOpen(false);
         };
 
-        if (loading) return <p>Loading...</p>;
+        if (loading) return (
+        <div style={{ 
+            height: "76vh", 
+            display: "flex", 
+            justifyContent: "center",  // Centers horizontally
+            alignItems: "center",  // Centers vertically
+            textAlign: "center" 
+        }}>
+            <p>Loading stories</p>
+        </div>
+        );
 
         return (
             <div className={styles.container}>
-                <MapContainer className={styles.map} center={position} zoom={16} scrollWheelZoom={true} whenCreated={setMap}>
+                <MapContainer 
+                className={styles.map} 
+                center={position} 
+                maxBounds={[[80, -205], [-80, 205 ]]}
+                zoom={16}
+                minZoom={3}
+                scrollWheelZoom={true} 
+                whenCreated={setMap}>
                     <MapResizer />
                     <ClickComponent
                         selectionMarker={selectionMarker}
@@ -111,13 +127,11 @@ function ClickComponent({ selectionMarker, setSelectionMarker, handleClickOpen }
                             }
 
                             const latLong = data[4];
-                            console.log("LATLONG", latLong); 
                             const cleanedLatLong = latLong.replace(/^"|"$/g, '').replace(/\\"/g, '"');
 
                             let position;
                             try {
                                 position = JSON.parse(cleanedLatLong);
-                                console.log("POS", position); 
 
                                 // Ensure position is valid
                                 if (!position || typeof position.lat !== 'number' || typeof position.lng !== 'number') {

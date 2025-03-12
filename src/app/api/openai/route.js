@@ -3,7 +3,6 @@ import OpenAI from "openai";
 
 export async function POST(req) {
 
-  console.log("REQ:", req)
   try {
     const { input } = await req.json();
     
@@ -68,8 +67,6 @@ export async function POST(req) {
         },
       ],
     });
-
-    console.log("REPONSE:", response.choices[0].message.content); 
 
     const rawContent = response.choices[0].message.content.trim(); 
     const jsonContent = rawContent.replace(/```json|```/g, "").trim(); // Remove markdown formatting

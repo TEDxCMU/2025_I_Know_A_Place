@@ -34,11 +34,9 @@ export async function GET() {
             };
 
             async function getPopulatedRows() {
-                console.log("Fetching rows:", rowOptions.range);
                 let response = await gsapi.spreadsheets.values.get(rowOptions);
 
                 if (!response.data.values || response.data.values.length === 0) {
-                    console.log("No data found.");
                     return [];
                 }
 
@@ -46,8 +44,6 @@ export async function GET() {
                 const populatedRows = response.data.values
                     .map(row => row.filter(value => value.trim() !== "")) // Remove empty cells in a row
                     .filter(row => row.length > 0); // Remove completely empty rows
-
-                console.log("Populated Rows:", populatedRows);
                 return populatedRows;
             }
 

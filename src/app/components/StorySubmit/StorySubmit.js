@@ -6,10 +6,6 @@ import styles from './StorySubmit.module.css';
 
 async function generate(setLoading, tags, setTags, story) {
 
-    console.log("PROMPT", story); 
-
-    console.log("generate"); 
-
     setLoading(true); // Set loading state to true
 
     try {
@@ -25,8 +21,6 @@ async function generate(setLoading, tags, setTags, story) {
         const event = await response.json();
 
         setTags(() => event.tags);
-
-        console.log("TAGS:", tags, tags.length);
         
     } catch (error) {x
         console.error('Error:', error);
@@ -170,7 +164,7 @@ function StorySubmit({ latLong }) {
                         {tags.length >= 3 &&(
                             <>
                             <label className={styles.label} htmlFor="story">Tags</label>
-                            <div style={{display:"flex", flexWrap:"wrap", margin:"12px 0 20px 0 "}}>
+                            <div className={styles.tagRow}>
                             {tags.map((t, index) => (
                                 <button className={styles.tag} key={index} value={t}>
                                     {t.tag}

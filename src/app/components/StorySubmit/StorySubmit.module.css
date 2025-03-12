@@ -66,3 +66,9 @@
     margin: 1rem;
     margin-top: 0.4rem;
 }
+
+.tagRow {
+    display:flex;
+    flex-wrap: wrap;
+    margin: 12px 0 20px 0;
+}
