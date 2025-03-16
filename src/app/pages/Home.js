@@ -2,6 +2,7 @@ import Header from '../components/Header/Header';
 import InfoPanel from '../components/InfoPanel/InfoPanel';
 
 import dynamic from 'next/dynamic';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 function HomePage() {
     const Map = dynamic(() => import('@/app/components/StoryMapView/StoryMapView'), {
@@ -21,6 +22,7 @@ function HomePage() {
     return (
         <>
             <InfoPanel />
+            <SearchBar />
             <Map />
         </>
     );
